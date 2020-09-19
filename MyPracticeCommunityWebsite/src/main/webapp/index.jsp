@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>르그넷이다 임마</title>
+    <title>르그넷</title>
     <link href="css/style.css?ver=1" rel="stylesheet" type="text/css"/>
     <%-- ?ver=1 은 쿼리스트링으로, 즉각 반영을 위한 것 --%>
 </head>
@@ -72,12 +72,28 @@
         </div>
     </div>
 </header>
-
 <div style="float: right; margin-right: 50%">
-    아이디 : <input type="text" style="width: 100px">
-    비밀번호 : <input type="password" style="width: 100px">
-
-    <input type="submit" value="가입">
+    아이디 : <input id="id" type="text" style="width: 100px">
+    비밀번호 : <input id="password" type="password" style="width: 100px">
+    <input type="button" value="회원가입">
+    <input type="submit" value="로그인" onclick="idAndPasswordCheck()">
+    <% String id = request.getParameter("id"); %>
+    <script>
+        function idAndPasswordCheck() {
+            let idValue = document.getElementById("id").value;
+            let password = document.getElementById("password").value;
+            if (idValue == "") {
+                alert("아이디를 입력하시오");
+                document.getElementById("id").focus();
+                return;
+            }
+            if (password == "") {
+                alert("비밀번호를 입력하시오");
+                document.getElementById("password").focus();
+                return;
+            }
+        }
+    </script>
 </div>
 
 </body>
