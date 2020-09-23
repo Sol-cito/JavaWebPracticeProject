@@ -11,7 +11,7 @@
 <body bgcolor="#f5f5dc">
 <%@include file="headerAndfooter/header.jsp" %>
 
-<div style="float: right; margin-right: 50%">
+<div style="margin-left: 15%">
 
     <form method="post" action="jsp/register.jsp">
         아이디 : <input id="id" type="text" style="width: 100px">
@@ -37,6 +37,8 @@
         </script>
     </form>
 </div>
-
 </body>
+<footer>
+    <%@include file="headerAndfooter/footer.jsp" %>
+</footer>
 </html>
