@@ -7,7 +7,7 @@
 <header id="header">
     <div class="header_mainDiv">
         <div class="header_box_LGnet">
-            <p style="font-size: 30px">르그넷</p>
+            <p style="font-size: 30px; cursor: pointer"  onclick="location.href='../index.jsp'">르그넷</p>
         </div>
 
         <div class="header_box">

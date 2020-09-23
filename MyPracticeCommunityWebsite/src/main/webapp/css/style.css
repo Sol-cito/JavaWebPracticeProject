@@ -1,5 +1,18 @@
 @CHARSET "UTF-8";
 
+#header {
+    margin-left: 15%;
+}
+
+.mainSection {
+    margin-left: 15%;
+    margin-right: 18%;
+}
+
+.register-attributes {
+    background-color: #d5d0d0;
+    border: 1px solid #ccc;
+}
 
 .header_mainDiv {
     height: 300px;
