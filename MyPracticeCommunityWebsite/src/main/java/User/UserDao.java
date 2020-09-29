@@ -5,11 +5,12 @@ package User;
 // Connection 객체를 자동완성으로 import할 때는 com.mysql.connection이 아닌
 // java 표준인 java.sql.Connection 클래스를 import해야 한다.
 
-import jdk.internal.org.jline.utils.Log;
+//import jdk.internal.org.jline.utils.Log;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
 public class UserDao {
     private String id;
@@ -29,12 +30,12 @@ public class UserDao {
         try {
             Class.forName("com.mysql.jdbc.Driver"); // mysql 드라이버 로딩
             connection = DriverManager.getConnection(dbURL, dbID, dbPassword);
-            Log.debug("연결 성공");
+//            Log.debug("연결 성공");
         } catch (ClassNotFoundException e) {
-            Log.debug("[ERROR] Driver 로딩 실패");
+//            Log.debug("[ERROR] Driver 로딩 실패");
             e.printStackTrace();
         } catch (SQLException e) {
-            Log.debug("[ERROR] connection 실패");
+//            Log.debug("[ERROR] connection 실패");
             e.printStackTrace();
         } finally {
             try {
@@ -42,7 +43,7 @@ public class UserDao {
                     connection.close();
                 }
             } catch (SQLException e) {
-                Log.debug("[ERROR] 커넥션 close 실패");
+//                Log.debug("[ERROR] 커넥션 close 실패");
                 e.printStackTrace();
             }
         }

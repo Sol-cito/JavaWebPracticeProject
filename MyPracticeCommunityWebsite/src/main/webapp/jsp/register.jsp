@@ -13,7 +13,7 @@
     <h2>회원가입</h2>
     <section class="register">
         <h3>르그넷 회원 정보</h3>
-        <form method="post"> <%-- action 에 link 페이지 걸어야 함--%>
+        <form method="post" action="/test"> <%-- action 에 link 페이지 걸어야 함--%>
             <div class="register-attributes">
                 <div class="form-group">
                     <label for="id">아이디 : </label>
@@ -21,24 +21,29 @@
                     <p>10자 이하의 알파벳, 숫자만 가능함</p>
                 </div>
                 <div class="form-group">
-                    비밀번호 : <input id="password" type="password" style="width: 250px">
+                    <label for="password">비밀번호 : </label>
+                    <input id="password" name="password" type="password" style="width: 250px">
                 </div>
                 <div class="form-group">
-                    비밀번호 확인 : <input id="password_check" type="password" style="width: 250px">
+                    <label for="password_check">비밀번호 확인 : </label>
+                    <input id="password_check" type="password" style="width: 250px">
                     <p>확인을 위해 이전과 동일한 비밀번호를 입력하세요.</p>
                 </div>
                 <div class="form-group">
-                    이메일 : <input id="email" type="text" style="width: 250px">
+                    <label for="email">이메일 : </label>
+                    <input id="email" type="text" style="width: 250px">
                     <p>비밀번호 분실시 찾을 수 있는 유일한 수단입니다. 정확히 입력해주세요.</p>
                 </div>
                 <div class="form-group">
-                    닉네임 : <input id="nickname" type="text" style="width: 250px">
+                    <label for="nickname">닉네임 : </label>
+                    <input id="nickname" type="text" style="width: 250px">
                     <p>닉네임은 글 작성시 노출됩니다. 개인정보가 노출되지 않도록 주의하시기 바랍니다.<br>
                         닉네임을 한 번 변경하신 후에는 7일 이내에 다시 닉네임을 변경하실 수 없습니다.</p>
                 </div>
             </div>
+            <input name="registerButton" type="submit" value="회원가입하기"/>
+            <input name="testInput" type="submit" value="입력 내용 확인하기"/>
         </form>
-        <button> 회원 가입하기</button>
     </section>
 </section>
 </body>
