@@ -29,5 +29,9 @@ To learn basic Java web building, ultimately to jump up to learn Spring framewor
 
 - Install Mysql on my laptop (Window 10).
 - Add JDBC library in the project.
-
 - Create registration page and it needs to get more elaborate (I will be working on it tomorrow).
+
+##### 2020.09.30
+
+- Created DAO and Servlet to study and test those techniques.
+- Complete registration page.
