@@ -10,43 +10,62 @@ package User;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Logger;
 
 public class UserDao {
+
+    private static UserDao instance;
+
     private String id;
     private String password;
     private String email;
     private String nickName;
-    private static final String dbURL = "jdbc:mysql://localhost/사용할db이름";
-    private static final String dbID = "";
-    private static final String dbPassword = "";
+    private static final String dbURL = "jdbc:mysql://localhost/javaweb";
+    private static final String dbID = "sol_gasang";
+    private static final String dbPassword = "Solda9010!";
 
     private Connection connection; // 커넥션 객체
     private ResultSet resultSet; // sql 질의 결과 저장 객체
     private PreparedStatement ps;
 
-    public UserDao() {
-        /* DB connection */
+    /* DB unit test */
+//    public static void main(String[] args) {
+//        UserDao userDao = new UserDao();
+//    }
+
+    private void getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver"); // mysql 드라이버 로딩
             connection = DriverManager.getConnection(dbURL, dbID, dbPassword);
-//            Log.debug("연결 성공");
+            System.out.println("연결 성공!!!");
         } catch (ClassNotFoundException e) {
-//            Log.debug("[ERROR] Driver 로딩 실패");
+            System.out.println("[ERROR] driver 로딩 실패 ");
             e.printStackTrace();
         } catch (SQLException e) {
-//            Log.debug("[ERROR] connection 실패");
+            System.out.println("[ERROR] Connection 실패 ");
             e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-//                Log.debug("[ERROR] 커넥션 close 실패");
-                e.printStackTrace();
-            }
         }
+    }
+
+    private void closeConnection() {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("[ERROR] Connection close 실패 ");
+            e.printStackTrace();
+        }
+    }
+
+    /* 비동기화 Singleton Pattern 적용  */
+    public static UserDao getInstance() {
+        if (instance == null) {
+            instance = new UserDao();
+        }
+        return instance;
+    }
+
+    private UserDao() {
     }
 
     /* int ->  -2 : 서버접속 오류 / -1 : 아이디 없음 / 0 : 비밀번호 불일치 / 1 : 로그인 성공 */
@@ -124,9 +143,15 @@ public class UserDao {
         /* 작성중 */
         if (!isDuplicateId(id) && !isDuplicateNickname(nickName) && !isDuplicateEmail(email)) {
             try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String SQL = "INSERT INTO USER VALUE (?, ?, ?, ?, ?)";
                 ps = connection.prepareStatement(SQL);
-                resultSet = ps.executeQuery();
+                ps.setString(1, id);
+                ps.setString(2, password);
+                ps.setString(3, email);
+                ps.setString(4, nickname);
+                ps.setString(5, getDate());
+                int result = ps.executeUpdate();
                 if (resultSet.next()) {
                     return 0;
                 }
