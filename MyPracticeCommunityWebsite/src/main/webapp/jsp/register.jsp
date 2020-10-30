@@ -13,7 +13,7 @@
     <h2>회원가입</h2>
     <section class="register">
         <h3>르그넷 회원 정보</h3>
-        <form id="registerForm" method="post" action="testJSP.jsp"> <%-- action 에 link 페이지 걸어야 함--%>
+        <form id="registerForm" method="post" action="joinPro.jsp"> <%-- action 에 link 페이지 걸어야 함--%>
             <div class="register-attributes">
                 <div class="form-group">
                     <label for="id">아이디 : </label>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">이메일 : </label>
-                    <input id="email" type="text" style="width: 250px">
+                    <input id="email" name="email" type="text" style="width: 250px">
                     <p>비밀번호 분실시 찾을 수 있는 유일한 수단입니다. 정확히 입력해주세요.</p>
                 </div>
                 <div class="form-group">
