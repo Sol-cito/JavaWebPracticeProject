@@ -20,8 +20,8 @@ public class UserDao {
     private String password_check;
     private String email;
     private String nickName;
-    private static final String dbURL = "jdbc:mysql://localhost/javaweb";
-    private static final String dbID = "sol_gasang";
+    private static final String dbURL = "jdbc:mysql://localhost/lgnet";
+    private static final String dbID = "dataenggu";
     private static final String dbPassword = "Solda9010!";
 
     private Connection connection; // 커넥션 객체
@@ -82,7 +82,7 @@ public class UserDao {
             System.out.println("중복 아이디/이메일/닉네임임");
             return -3;
         }
-        String INSERT_SQL = "INSERT INTO USER VALUE (?, ?, ?, ?, ?)";
+        String INSERT_SQL = "INSERT INTO tb_user VALUE (?, ?, ?, ?, ?)";
         try {
             ps = connection.prepareStatement(INSERT_SQL);
             ps.setString(1, id);
@@ -92,11 +92,12 @@ public class UserDao {
             ps.setString(5, getDate());
             int insert_result = ps.executeUpdate();
             if (insert_result == 1) {
-                System.out.println("--------회원가입 성공!!!!!---------");
+                System.out.println("Registration Success");
                 System.out.println("Update 건수 : " + insert_result + "건");
+                // PreparedStatement - autocommit임
                 return 0; // 성공
             }
-            System.out.println("[ERROR] insert 에러 (update건수 0건)");
+            System.out.println("[ERROR] insert Error (update건수 0건)");
             return -1; // INSERT 에러
         } catch (SQLException e) {
             e.printStackTrace();
@@ -128,7 +129,7 @@ public class UserDao {
     /* 중복 아이디 체크 */
     public boolean isDuplicateId(String id) {
         try {
-            String sql = "SELECT id FROM USER WHERE id = ?";
+            String sql = "SELECT id FROM tb_user WHERE id = ?";
             ps = connection.prepareStatement(sql);
             ps.setString(1, id);
             resultSet = ps.executeQuery();
@@ -144,7 +145,7 @@ public class UserDao {
     /* 중복 닉네임 체크 */
     public boolean isDuplicateNickname(String nickName) {
         try {
-            String sql = "SELECT nickname FROM USER WHERE nickname = ?";
+            String sql = "SELECT nickname FROM tb_user WHERE nickname = ?";
             ps = connection.prepareStatement(sql);
             ps.setString(1, nickName);
             resultSet = ps.executeQuery();
@@ -161,7 +162,7 @@ public class UserDao {
     /* 중복 닉네임 체크 */
     public boolean isDuplicateEmail(String email) {
         try {
-            String sql = "SELECT email FROM USER WHERE email = ?";
+            String sql = "SELECT email FROM tb_user WHERE email = ?";
             ps = connection.prepareStatement(sql);
             ps.setString(1, email);
             resultSet = ps.executeQuery();

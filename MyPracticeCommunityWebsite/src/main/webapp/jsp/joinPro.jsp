@@ -2,6 +2,7 @@
 <%-- MemberBean 및 UserDao 임포트 : 안하면 jsp 내에서 인스턴스 생성 못함 --%>
 <%@ page import="User.UserDao" %>
 <%@ page import="User.MemberBean" %>
+<%@ page import="java.io.PrintWriter" %>
 
 <html>
 <head>
@@ -27,20 +28,25 @@ if(memberBean == null){
 <%-- property = "*" 로 하면 모든 속성--%>
 <%
     UserDao userDao = UserDao.getInstance();
-    userDao.register(memberBean);
+    int userDaoResult = userDao.register(memberBean);
+    /* 1 : 가입 성공 / -1 : insert 에러 / -2 : DB접속 에러 / -3 : 중복 ID/이메일/닉네임*/
+    PrintWriter printWriter = response.getWriter();
+    printWriter.println("<script>");
+    if (userDaoResult == 0) {
+        printWriter.println("alert('회원가입에 성공하였습니다!!!');");
+        printWriter.println("location.href = '/MyPracticeCommunityWebsite_war/'");
+    } else if (userDaoResult == -1) { // insert 에러
+        printWriter.println("alert('[ERROR] insert 에러');");
+        printWriter.println("location.href = '../jsp/register.jsp'");
+    } else if (userDaoResult == -2) { // DB 접속 에러
+        printWriter.println("alert('[ERROR] DB connection error');");
+        printWriter.println("location.href = '../jsp/register.jsp");
+    } else if (userDaoResult == -3) { // 중복 ID/이메일/닉네임
+        printWriter.println("alert('ID or EMAIL or NICKNAME 중뷐');");
+        printWriter.println("location.href = '../jsp/register.jsp'");
+    }
+    printWriter.println("</script>");
+    printWriter.flush();
 %>
-회원가입을 축하드립니다! <br>
-<div>
-    아이디 : <%=memberBean.getId() %>
-</div>
-<div>
-    비밀번호 : <%=memberBean.getPassword() %>
-</div>
-<div>
-    이메일 : <%=memberBean.getEmail() %>
-</div>
-<div>
-    닉네임 : <%=memberBean.getNickname() %>
-</div>
 </body>
 </html>
