@@ -1,7 +1,5 @@
 package User;
 
-import java.util.Date;
-
 public class MemberBean {
     private String id;
     private String password;

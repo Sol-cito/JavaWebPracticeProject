@@ -13,10 +13,9 @@
 
 <div style="margin-left: 15%">
     <form method="post" action="jsp/loginPro.jsp" onsubmit="return idAndPasswordCheck();">
-        아이디 : <input id="id" type="text" style="width: 100px">
-        비밀번호 : <input id="password" type="password" style="width: 100px">
+        아이디 : <input id="id" name="id" type="text" style="width: 100px">
+        비밀번호 : <input id="password" name="password" type="password" style="width: 100px">
         <input type="submit" value="로그인">
-        <% String id = request.getParameter("id"); %>
         <script>
             function idAndPasswordCheck() {
                 let idValue = document.getElementById("id").value;
