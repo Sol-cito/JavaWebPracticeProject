@@ -12,12 +12,10 @@
 <%@include file="headerAndfooter/header.jsp" %>
 
 <div style="margin-left: 15%">
-
-    <form method="post" action="jsp/register.jsp">
+    <form method="post" action="jsp/loginPro.jsp" onsubmit="return idAndPasswordCheck();">
         아이디 : <input id="id" type="text" style="width: 100px">
         비밀번호 : <input id="password" type="password" style="width: 100px">
-        <input type="submit" value="회원가입">
-        <input type="button" value="로그인" onclick="idAndPasswordCheck()">
+        <input type="submit" value="로그인">
         <% String id = request.getParameter("id"); %>
         <script>
             function idAndPasswordCheck() {
@@ -26,16 +24,18 @@
                 if (idValue == "") {
                     alert("아이디를 입력하시오");
                     document.getElementById("id").focus();
-                    return;
+                    return false;
                 }
                 if (password == "") {
                     alert("비밀번호를 입력하시오");
                     document.getElementById("password").focus();
-                    return;
+                    return false;
                 }
+                return true;
             }
         </script>
     </form>
+    <input type="button" value="회원가입" onclick="location.href = 'jsp/register.jsp'">
 </div>
 </body>
 <footer>
