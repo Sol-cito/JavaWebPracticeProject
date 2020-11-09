@@ -35,3 +35,11 @@ To learn basic Java web building, ultimately to jump up to learn Spring framewor
 
 - Created DAO and Servlet to study and test those techniques.
 - Complete registration page.
+
+##### 2020.10.15
+
+- Create mysql database and user table
+
+##### 2020.11.10
+
+- Finish registration and login/logout logic
