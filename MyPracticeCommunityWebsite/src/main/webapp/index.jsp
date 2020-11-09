@@ -11,6 +11,8 @@
 <body bgcolor="#f5f5dc">
 <%@include file="headerAndfooter/header.jsp" %>
 
+<% if (session.getAttribute("nickname") == null) { %>
+
 <div style="margin-left: 15%">
     <form method="post" action="jsp/loginPro.jsp" onsubmit="return idAndPasswordCheck();">
         아이디 : <input id="id" name="id" type="text" style="width: 100px">
@@ -34,8 +36,17 @@
             }
         </script>
     </form>
+</div>
+<%} else {%>
+<div>
+    <h3>닉네임 : <%= session.getAttribute("nickname")%>
+    </h3>
+</div>
+<%}%>
+<div>
     <input type="button" value="회원가입" onclick="location.href = 'jsp/register.jsp'">
 </div>
+
 </body>
 <footer>
     <%@include file="headerAndfooter/footer.jsp" %>
