@@ -36,17 +36,13 @@
             }
         </script>
     </form>
-</div>
-<%} else {%>
-<div>
+    <%} else {%>
     <h3>닉네임 : <%= session.getAttribute("nickname")%>
-    </h3>
-</div>
-<%}%>
-<div>
+    </>
+    <input type="button" value="로그아웃" onclick="location.href = 'jsp/logoutPro.jsp'">
+    <%}%>
     <input type="button" value="회원가입" onclick="location.href = 'jsp/register.jsp'">
 </div>
-
 </body>
 <footer>
     <%@include file="headerAndfooter/footer.jsp" %>
