@@ -21,11 +21,8 @@
             session.setAttribute("nickname", memberBean.getNickname());
             System.out.println("세션 설정 : " + session.getAttribute("nickname"));
             break;
-        case 0: //비밀번호 불일치
-            printWriter.println("alert('비밀번호 다시 확인하시오');");
-            break;
-        case -1: // 아이디 DB에 없음
-            printWriter.println("alert('아이디 없는데?');");
+        case -1: // DB조회결과 0건
+            printWriter.println("alert('아이디/비번 다시 확인하시오');");
             break;
         default:
             printWriter.println("alert('시스템 오류...');");

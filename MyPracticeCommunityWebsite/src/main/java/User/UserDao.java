@@ -17,7 +17,6 @@ public class UserDao {
 
     private String id;
     private String password;
-    private String password_check;
     private String email;
     private String nickName;
     private static final String dbURL = "jdbc:mysql://localhost/lgnet";
@@ -82,7 +81,7 @@ public class UserDao {
             System.out.println("중복 아이디/이메일/닉네임임");
             return -3;
         }
-        String INSERT_SQL = "INSERT INTO tb_user VALUE (?, ?, ?, ?, ?)";
+        String INSERT_SQL = "INSERT INTO tb_user VALUE (?, PASSWORD(?), ?, ?, ?)";
         try {
             ps = connection.prepareStatement(INSERT_SQL);
             ps.setString(1, id);
@@ -109,19 +108,25 @@ public class UserDao {
 
 
     /* int ->  -2 : 서버접속 오류 / -1 : 아이디 없음 / 0 : 비밀번호 불일치 / 1 : 로그인 성공 */
-    public int login(String id, String password) {
-        String loginSQL = "SELECT password FROM USER WHERE id = ?";
+    public int login(MemberBean memberBean) {
+        id = memberBean.getId();
+        password = memberBean.getPassword();
+        instance.getConnection();
+        String loginSQL = "SELECT id, nickname FROM tb_user WHERE id = ? and password = PASSWORD(" + password + ")";
         try {
             ps = connection.prepareStatement(loginSQL);
             ps.setString(1, id);
             resultSet = ps.executeQuery();
             if (resultSet.next()) { // 결과가 true면
-                return resultSet.getString(1).equals(password) ? 1 : 0;
+                memberBean.setNickname(resultSet.getString(2)); // 닉네임을 set한다 -> 세션을 위해서
+                return 1;
             } else { // 결과가 없으면
                 return -1;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            instance.closeConnection();
         }
         return -2;
     }
@@ -174,32 +179,6 @@ public class UserDao {
         }
         return false;
     }
-//    /*
-//     * 회원가입
-//     * -2 : 접속 에러 / -1 : sql insert 실패 / 0 : 성공 */
-//    public int register(String id, String password, String email, String nickname) {
-//        /* 작성중 */
-//        if (!isDuplicateId(id) && !isDuplicateNickname(nickName) && !isDuplicateEmail(email)) {
-//            try {
-//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//                String SQL = "INSERT INTO USER VALUE (?, ?, ?, ?, ?)";
-//                ps = connection.prepareStatement(SQL);
-//                ps.setString(1, id);
-//                ps.setString(2, password);
-//                ps.setString(3, email);
-//                ps.setString(4, nickname);
-//                ps.setString(5, getDate());
-//                int result = ps.executeUpdate();
-//                if (resultSet.next()) {
-//                    return 0;
-//                }
-//                return -1;
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return -2;
-//    }
 
     /* 가입일 GET */
     private String getDate() {
