@@ -112,7 +112,7 @@ public class UserDao {
         id = memberBean.getId();
         password = memberBean.getPassword();
         instance.getConnection();
-        String loginSQL = "SELECT id, nickname FROM tb_user WHERE id = ? and password = PASSWORD(" + password + ")";
+        String loginSQL = "SELECT id, nickname FROM tb_user WHERE id = ? and password = PASSWORD('" + password + "')";
         try {
             ps = connection.prepareStatement(loginSQL);
             ps.setString(1, id);

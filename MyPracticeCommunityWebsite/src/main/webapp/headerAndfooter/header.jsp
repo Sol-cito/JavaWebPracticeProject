@@ -7,12 +7,14 @@
 <header id="header">
     <div class="header_mainDiv">
         <div class="header_box_LGnet">
-            <p style="font-size: 30px; cursor: pointer"  onclick="location.href='../index.jsp'">르그넷</p>
+            <p style="font-size: 30px; cursor: pointer" onclick="location.href= '/'">
+                르그넷</p>
         </div>
 
         <div class="header_box">
             <ul>
-                <li> 공지사항</li>
+                <li>
+                    <a href="/jsp/freeBoard.jsp">자유게시판</a></li>
                 <li> 이벤트</li>
                 <li> 추천Best</li>
                 <li> 뉴스/미디어</li>

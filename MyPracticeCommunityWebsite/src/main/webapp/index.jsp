@@ -9,7 +9,7 @@
     <%-- ?ver=1 은 쿼리스트링으로, 즉각 반영을 위한 것 --%>
 </head>
 <body bgcolor="#f5f5dc">
-<%@include file="headerAndfooter/header.jsp" %>
+<%@include file="/headerAndfooter/header.jsp" %>
 
 <% if (session.getAttribute("nickname") == null) { %>
 
@@ -39,12 +39,12 @@
     <%} else {%>
     <h3>닉네임 : <%= session.getAttribute("nickname")%>
     </>
-    <input type="button" value="로그아웃" onclick="location.href = 'jsp/logoutPro.jsp'">
+    <input type="button" value="로그아웃" onclick="location.href = '/jsp/logoutPro.jsp'">
     <%}%>
-    <input type="button" value="회원가입" onclick="location.href = 'jsp/register.jsp'">
+    <input type="button" value="회원가입" onclick="location.href = '/jsp/register.jsp'">
 </div>
 </body>
 <footer>
-    <%@include file="headerAndfooter/footer.jsp" %>
+    <%@include file="/headerAndfooter/footer.jsp" %>
 </footer>
 </html>

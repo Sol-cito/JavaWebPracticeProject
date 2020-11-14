@@ -28,7 +28,7 @@
             printWriter.println("alert('시스템 오류...');");
             break;
     }
-    printWriter.println("location.href = '/MyPracticeCommunityWebsite_war/'");
+    printWriter.println("location.href = '/'");
     printWriter.println("</script>");
     printWriter.flush();
 %>

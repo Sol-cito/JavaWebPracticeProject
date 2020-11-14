@@ -40,3 +40,7 @@
     border: 1px solid #ccc;
     border-bottom-width: 2px;
 }
+
+.freeBoard_p_tag {
+    align-content: center;
+}

@@ -8,7 +8,7 @@
     <%-- ?ver=1 은 쿼리스트링으로, 즉각 반영을 위한 것 --%>
 </head>
 <body bgcolor="#f5f5dc">
-<%@include file="../headerAndfooter/header.jsp" %>
+<%@include file="/headerAndfooter/header.jsp" %>
 <section class="mainSection">
     <h2>회원가입</h2>
     <section class="register">
@@ -98,6 +98,6 @@
 </section>
 </body>
 <footer>
-    <%@include file="../headerAndfooter/footer.jsp" %>
+    <%@include file="/headerAndfooter/footer.jsp" %>
 </footer>
 </html>

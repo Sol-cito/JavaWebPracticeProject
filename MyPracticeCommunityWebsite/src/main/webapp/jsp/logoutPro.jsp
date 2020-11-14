@@ -6,7 +6,7 @@
 <body>
 <%
     session.invalidate();
-    response.sendRedirect("../"); // go to index
+    response.sendRedirect("/"); // go to index
 
 %>
 </body>

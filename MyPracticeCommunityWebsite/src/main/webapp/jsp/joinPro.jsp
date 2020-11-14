@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%-- MemberBean 및 UserDao 임포트 : 안하면 jsp 내에서 인스턴스 생성 못함 --%>
 <%@ page import="User.UserDao" %>
-<%@ page import="User.MemberBean" %>
 <%@ page import="java.io.PrintWriter" %>
 
 <html>
@@ -34,16 +33,16 @@ if(memberBean == null){
     printWriter.println("<script>");
     if (userDaoResult == 0) {
         printWriter.println("alert('회원가입에 성공하였습니다!!!');");
-        printWriter.println("location.href = '/MyPracticeCommunityWebsite_war/'");
+        printWriter.println("location.href = '/'");
     } else if (userDaoResult == -1) { // insert 에러
         printWriter.println("alert('[ERROR] insert 에러');");
-        printWriter.println("location.href = '../jsp/register.jsp'");
+        printWriter.println("location.href = '/jsp/register.jsp'");
     } else if (userDaoResult == -2) { // DB 접속 에러
         printWriter.println("alert('[ERROR] DB connection error');");
-        printWriter.println("location.href = '../jsp/register.jsp");
+        printWriter.println("location.href = '/jsp/register.jsp");
     } else if (userDaoResult == -3) { // 중복 ID/이메일/닉네임
         printWriter.println("alert('ID or EMAIL or NICKNAME 중뷐');");
-        printWriter.println("location.href = '../jsp/register.jsp'");
+        printWriter.println("location.href = '/jsp/register.jsp'");
     }
     printWriter.println("</script>");
     printWriter.flush();
