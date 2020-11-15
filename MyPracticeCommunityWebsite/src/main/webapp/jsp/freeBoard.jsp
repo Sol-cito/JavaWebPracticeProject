@@ -7,12 +7,9 @@
 </head>
 <body bgcolor="#f5f5dc">
 <%@include file="/headerAndfooter/header.jsp" %>
-<form action="writingPro.jsp">
-    <p class="freeBoard_p_tag">제목 :<input name="title" type="text"><br></p>
-    <p class="freeBoard_p_tag"> 글쓴이 :<input name="author" type="text"><br></p>
-    <p class="freeBoard_p_tag">내용 : <input name="content" type="text" style="width: 80%; height: 50%"><br></p>
-    <input type="submit" value="글쓰기">
-</form>
+여기에 게시글 목록이 나와야 함.
+
+<input type="button" value="글쓰기" onclick="location.href = 'writing.jsp'">
 </body>
 <footer>
     <%@include file="/headerAndfooter/footer.jsp" %>

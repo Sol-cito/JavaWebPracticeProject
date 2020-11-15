@@ -12,6 +12,16 @@
 <jsp:setProperty name="boardContentBean" property="*"/>
 <% BoardDao boardDao = BoardDao.getInstance();
     int writingResult = boardDao.write(boardContentBean);
+    if (writingResult == 0) {
+        response.sendRedirect("freeBoard.jsp");
+    } else {
+        PrintWriter printWriter = response.getWriter();
+        printWriter.println("<script>");
+        printWriter.println("alert('글쓰는데 문제가 생겼음');");
+        printWriter.println("location.href = 'freeBoard.jsp'");
+        printWriter.println("</script>");
+        printWriter.flush();
+    }
 %>
 </body>
 </html>
