@@ -10,7 +10,8 @@
 <body>
 <jsp:useBean id="boardContentBean" class="Board.BoardContentBean"/>
 <jsp:setProperty name="boardContentBean" property="*"/>
-<% BoardDao boardDao = BoardDao.getInstance(); %>
-
+<% BoardDao boardDao = BoardDao.getInstance();
+    int writingResult = boardDao.write(boardContentBean);
+%>
 </body>
 </html>
