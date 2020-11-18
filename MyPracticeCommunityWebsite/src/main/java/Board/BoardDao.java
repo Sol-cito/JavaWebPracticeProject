@@ -2,6 +2,7 @@ package Board;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class BoardDao {
@@ -85,5 +86,29 @@ public class BoardDao {
         java.util.Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(date);
+    }
+
+    public ArrayList<BoardInfoBox> readBoard() {
+        ArrayList<BoardInfoBox> returnArray = new ArrayList<>();
+        instance.getConnection();
+        String SELECT_QUERY = "SELECT * FROM tb_freeboard";
+        try {
+            ps = connection.prepareStatement(SELECT_QUERY);
+            resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                BoardInfoBox boardInfoBox = new BoardInfoBox(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getDate(5));
+                returnArray.add(boardInfoBox);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            instance.closeConnection();
+        }
+        return returnArray;
     }
 }
