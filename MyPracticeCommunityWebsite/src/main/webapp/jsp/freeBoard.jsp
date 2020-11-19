@@ -8,10 +8,12 @@
     <meta charset="UTF-8">
     <title>자유게시판</title>
     <link href="../css/style.css?ver=1" rel="stylesheet" type="text/css"/>
+    <link href="/css/bootstrap.css" rel="stylesheet">
 </head>
 <body bgcolor="#f5f5dc">
 <%@include file="/headerAndfooter/header.jsp" %>
-<table>
+<table class="table">
+    <thead>
     <tr>
         <th>No</th>
         <th>제목</th>
@@ -19,27 +21,20 @@
         <th>날짜</th>
         <th>조회수</th>
     </tr>
+    </thead>
     <%
         BoardDao boardDao = BoardDao.getInstance();
         ArrayList<BoardInfoBox> arrayList = boardDao.readBoard();
-        PrintWriter printWriter = response.getWriter();
         for (int i = 0; i < arrayList.size(); i++) {
-            BoardInfoBox boardInfoBox = arrayList.get(i);
-            printWriter.println("<tr>");
-            printWriter.println("<td>" + boardInfoBox.getSeq() + "</td>");
-            printWriter.println("<td>" + boardInfoBox.getTitle() + "</td>");
-            printWriter.println("<td>" + boardInfoBox.getAuthor() + "</td>");
-            printWriter.println("<td>" + boardInfoBox.getDate() + "</td>");
-            printWriter.println("</tr>");
-        }
-    %>
+            BoardInfoBox boardInfoBox = arrayList.get(i); %>
     <tr>
-        <td>1</td>
-        <td>테스트 글제목~~~</td>
-        <td>글쓴이임</td>
-        <td>2020-10-10</td>
-        <td>13</td>
+        <td><%= boardInfoBox.getSeq()%>
+        <td><%= boardInfoBox.getTitle()%>
+        <td><%= boardInfoBox.getAuthor()%>
+        <td><%= boardInfoBox.getDate()%>
+        <td><%= "아직 안함"%>
     </tr>
+    <%}%>
 </table>
 
 <input type="button" value="글쓰기" onclick="location.href = 'writing.jsp'">
