@@ -12,30 +12,32 @@
 </head>
 <body bgcolor="#f5f5dc">
 <%@include file="/headerAndfooter/header.jsp" %>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>No</th>
-        <th>제목</th>
-        <th>글쓴이</th>
-        <th>날짜</th>
-        <th>조회수</th>
-    </tr>
-    </thead>
-    <%
-        BoardDao boardDao = BoardDao.getInstance();
-        ArrayList<BoardInfoBox> arrayList = boardDao.readBoard();
-        for (int i = 0; i < arrayList.size(); i++) {
-            BoardInfoBox boardInfoBox = arrayList.get(i); %>
-    <tr>
-        <td><%= boardInfoBox.getSeq()%>
-        <td><%= boardInfoBox.getTitle()%>
-        <td><%= boardInfoBox.getAuthor()%>
-        <td><%= boardInfoBox.getDate()%>
-        <td><%= "아직 안함"%>
-    </tr>
-    <%}%>
-</table>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>제목</th>
+            <th>글쓴이</th>
+            <th>날짜</th>
+            <th>조회수</th>
+        </tr>
+        </thead>
+        <%
+            BoardDao boardDao = BoardDao.getInstance();
+            ArrayList<BoardInfoBox> arrayList = boardDao.readBoard();
+            for (int i = 0; i < arrayList.size(); i++) {
+                BoardInfoBox boardInfoBox = arrayList.get(i); %>
+        <tr>
+            <td><%= boardInfoBox.getSeq()%>
+            <td><%= boardInfoBox.getTitle()%>
+            <td><%= boardInfoBox.getAuthor()%>
+            <td><%= boardInfoBox.getDate()%>
+            <td><%= "아직 안함"%>
+        </tr>
+        <%}%>
+    </table>
+</div>
 <div>
     <ul class="pagination justify-content-center">
         <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -44,7 +46,9 @@
         <li class="page-item"><a class="page-link" href="#">4</a></li>
         <li class="page-item"><a class="page-link" href="#">5</a></li>
     </ul>
-    <input class="btn-primary" type="button" value="글쓰기" onclick="location.href = 'writing.jsp'">
+    <div style="float: right; margin-right: 15%">
+        <input class="btn-primary" type="button" value="글쓰기" onclick="location.href = 'writing.jsp'">
+    </div>
 </div>
 </body>
 <footer>

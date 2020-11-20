@@ -17,7 +17,6 @@
     printWriter.println("<script>");
     switch (result) {
         case 1: //로긴 성공
-            printWriter.println("alert('Login success!!');");
             session.setAttribute("nickname", memberBean.getNickname());
             System.out.println("세션 설정 : " + session.getAttribute("nickname"));
             break;
