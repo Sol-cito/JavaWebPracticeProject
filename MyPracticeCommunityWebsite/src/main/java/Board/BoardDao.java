@@ -51,9 +51,9 @@ public class BoardDao {
         }
     }
 
-    public int write(BoardContentBean boardContentBean) {
+    public int write(BoardContentBean boardContentBean, String nickname) {
         String title = boardContentBean.getTitle();
-        String author = boardContentBean.getAuthor();
+        String author = nickname;
         String content = boardContentBean.getContent();
 
         instance.getConnection();
