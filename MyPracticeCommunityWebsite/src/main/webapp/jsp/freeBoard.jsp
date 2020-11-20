@@ -12,7 +12,7 @@
 </head>
 <body bgcolor="#f5f5dc">
 <%@include file="/headerAndfooter/header.jsp" %>
-<table class="table">
+<table class="table table-striped">
     <thead>
     <tr>
         <th>No</th>
@@ -36,8 +36,16 @@
     </tr>
     <%}%>
 </table>
-
-<input type="button" value="글쓰기" onclick="location.href = 'writing.jsp'">
+<div>
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">4</a></li>
+        <li class="page-item"><a class="page-link" href="#">5</a></li>
+    </ul>
+    <input class="btn-primary" type="button" value="글쓰기" onclick="location.href = 'writing.jsp'">
+</div>
 </body>
 <footer>
     <%@include file="/headerAndfooter/footer.jsp" %>
