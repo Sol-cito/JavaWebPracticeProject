@@ -30,7 +30,8 @@
                 BoardInfoBox boardInfoBox = arrayList.get(i); %>
         <tr>
             <td><%= boardInfoBox.getSeq()%>
-            <td><%= boardInfoBox.getTitle()%>
+            <td><a href="post.jsp?post_no=<%=boardInfoBox.getSeq()%>"><%= boardInfoBox.getTitle()%>
+                <%-- 위 방식은 get방식..?? [jsp주소?게시글번호] 형식으로 페이지를 뿌려주는 거 같음.--%>
             <td><%= boardInfoBox.getAuthor()%>
             <td><%= boardInfoBox.getDate()%>
             <td><%= "아직 안함"%>

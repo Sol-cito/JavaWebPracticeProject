@@ -8,7 +8,7 @@ import java.util.Date;
 public class BoardDao {
     private static BoardDao instance;
 
-    private static final String dbURL = "jdbc:mysql://localhost/lgnet";
+    private static final String dbURL = "jdbc:mysql://localhost/lgnet?autoReconnect=true&useSSL=false";
     private static final String dbID = "dataenggu";
     private static final String dbPassword = "Solda9010!";
 
@@ -110,5 +110,29 @@ public class BoardDao {
             instance.closeConnection();
         }
         return returnArray;
+    }
+
+    public BoardInfoBox showPost(int board_no) {
+        ArrayList<BoardInfoBox> returnArray = new ArrayList<>();
+        instance.getConnection();
+        String SELECT_QUERY = "SELECT * FROM tb_freeboard WHERE seq = ?";
+        BoardInfoBox boardInfoBox = null;
+        try {
+            ps = connection.prepareStatement(SELECT_QUERY);
+            ps.setInt(1, board_no);
+            resultSet = ps.executeQuery();
+            resultSet.next();
+            boardInfoBox = new BoardInfoBox(
+                    resultSet.getInt(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getDate(5));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            instance.closeConnection();
+        }
+        return boardInfoBox;
     }
 }
