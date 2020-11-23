@@ -16,13 +16,13 @@
     int post_no = Integer.parseInt(request.getParameter("post_no"));
     BoardDao boardDao = BoardDao.getInstance();
     int viewUpdateResult = boardDao.addView(post_no);
-    if (viewUpdateResult != 0) {
-        PrintWriter printWriter = response.getWriter();
-        printWriter.println("<script>");
-        printWriter.println("alert('조회수 업데이트 실패.');");
-        printWriter.println("</script>");
-        printWriter.flush();
-    }
+%>
+<% if (viewUpdateResult == 0) { %>
+<script>
+    alert("조회수 업데이트 실패");
+</script>
+<%}%>
+<%
     BoardInfoBox boardInfoBox = boardDao.showPost(post_no);
 %>
 <div class="container">
@@ -43,6 +43,17 @@
         <%= boardInfoBox.getText()%>
     </div>
 </div>
+<% if (session.getAttribute("nickname") != null && session.getAttribute("nickname").equals(boardInfoBox.getAuthor())) {%>
+<div class="container mt-5">
+    <input class="btn-primary mr-5" type="button" value="수정">
+    <a href="postDeletePro.jsp?post_no=<%=boardInfoBox.getSeq()%>" onclick="return askDelete()">삭제</a>
+    <script>
+        function askDelete() {
+            return confirm("정말 삭제하시겠습니까?")
+        }
+    </script>
+</div>
+<%}%>
 </body>
 <footer>
     <%@include file="/headerAndfooter/footer.jsp" %>

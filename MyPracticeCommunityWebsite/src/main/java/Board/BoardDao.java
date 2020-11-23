@@ -64,21 +64,13 @@ public class BoardDao {
             ps.setString(2, content);
             ps.setString(3, author);
             ps.setString(4, getDate());
-            int insert_result = ps.executeUpdate();
-            if (insert_result == 1) {
-                System.out.println("Registration Success");
-                System.out.println("Update 건수 : " + insert_result + "건");
-                // PreparedStatement - autocommit임
-                return 0; // 성공
-            }
-            System.out.println("[ERROR] insert Error (update건수 0건)");
-            return -1; // INSERT 에러
+            return ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             instance.closeConnection();
         }
-        return -2;
+        return 0;
     }
 
     /* 글쓴일 GET */
@@ -113,14 +105,14 @@ public class BoardDao {
         return returnArray;
     }
 
-    public BoardInfoBox showPost(int board_no) {
+    public BoardInfoBox showPost(int post_no) {
         ArrayList<BoardInfoBox> returnArray = new ArrayList<>();
         instance.getConnection();
         String SELECT_QUERY = "SELECT * FROM tb_freeboard WHERE seq = ?";
         BoardInfoBox boardInfoBox = null;
         try {
             ps = connection.prepareStatement(SELECT_QUERY);
-            ps.setInt(1, board_no);
+            ps.setInt(1, post_no);
             resultSet = ps.executeQuery();
             resultSet.next();
             boardInfoBox = new BoardInfoBox(
@@ -138,20 +130,32 @@ public class BoardDao {
         return boardInfoBox;
     }
 
-    public int addView(int post_no) {
+    public int deletePost(int post_no) {
         instance.getConnection();
-        String SELECT_QUERY = "UPDATE tb_freeboard SET VIEWS = VIEWS + 1 WHERE SEQ = " + post_no + ";";
+        String SELECT_QUERY = "DELETE FROM tb_freeboard WHERE seq = ?";
         try {
             ps = connection.prepareStatement(SELECT_QUERY);
-            int result = ps.executeUpdate();
-            if (result == 1) { // Update 건수 1
-                return 0; // 성공
-            }
+            ps.setInt(1, post_no);
+            return ps.executeUpdate(); // 업데이트 (delete)된 개수를 return한다.
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             instance.closeConnection();
         }
-        return -1; // 뭔가가 실패
+        return 0; // 실패
+    }
+
+    public int addView(int post_no) {
+        instance.getConnection();
+        String SELECT_QUERY = "UPDATE tb_freeboard SET VIEWS = VIEWS + 1 WHERE SEQ = " + post_no + ";";
+        try {
+            ps = connection.prepareStatement(SELECT_QUERY);
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            instance.closeConnection();
+        }
+        return 0; // 뭔가가 실패
     }
 }

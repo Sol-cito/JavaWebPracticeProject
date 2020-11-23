@@ -12,7 +12,7 @@
 <jsp:setProperty name="boardContentBean" property="*"/>
 <% BoardDao boardDao = BoardDao.getInstance();
     int writingResult = boardDao.write(boardContentBean, (String) session.getAttribute("nickname"));
-    if (writingResult == 0) {
+    if (writingResult > 0) {
         response.sendRedirect("freeBoard.jsp");
     } else {
         PrintWriter printWriter = response.getWriter();
