@@ -101,7 +101,8 @@ public class BoardDao {
                         resultSet.getString(2),
                         resultSet.getString(3),
                         resultSet.getString(4),
-                        resultSet.getDate(5));
+                        resultSet.getDate(5),
+                        resultSet.getInt(6));
                 returnArray.add(boardInfoBox);
             }
         } catch (SQLException e) {
@@ -127,12 +128,30 @@ public class BoardDao {
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),
-                    resultSet.getDate(5));
+                    resultSet.getDate(5),
+                    resultSet.getInt(6));
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             instance.closeConnection();
         }
         return boardInfoBox;
+    }
+
+    public int addView(int post_no) {
+        instance.getConnection();
+        String SELECT_QUERY = "UPDATE tb_freeboard SET VIEWS = VIEWS + 1 WHERE SEQ = " + post_no + ";";
+        try {
+            ps = connection.prepareStatement(SELECT_QUERY);
+            int result = ps.executeUpdate();
+            if (result == 1) { // Update 건수 1
+                return 0; // 성공
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            instance.closeConnection();
+        }
+        return -1; // 뭔가가 실패
     }
 }
