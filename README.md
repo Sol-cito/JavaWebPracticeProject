@@ -43,3 +43,9 @@ To learn basic Java web building, ultimately to jump up to learn Spring framewor
 ##### 2020.11.10
 
 - Finish registration and login/logout logic
+
+**2020.11.24**
+
+- Finish post writing, deleting and showing functions.
+- Bootstrap library applied.
+- tb_freeboard table added in Mysql server.
