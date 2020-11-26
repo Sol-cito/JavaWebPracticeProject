@@ -43,17 +43,19 @@
         <%= boardInfoBox.getText()%>
     </div>
 </div>
-<% if (session.getAttribute("nickname") != null && session.getAttribute("nickname").equals(boardInfoBox.getAuthor())) {%>
 <div class="container mt-5">
+    <% if (session.getAttribute("nickname") != null && session.getAttribute("nickname").equals(boardInfoBox.getAuthor())) {%>
     <input class="btn-primary mr-5" type="button" value="수정">
-    <a href="postDeletePro.jsp?post_no=<%=boardInfoBox.getSeq()%>" onclick="return askDelete()">삭제</a>
+    <a class="btn" href="postDeletePro.jsp?post_no=<%=boardInfoBox.getSeq()%>"
+       onclick="return askDelete()">삭제</a>
     <script>
         function askDelete() {
             return confirm("정말 삭제하시겠습니까?")
         }
     </script>
+    <%}%>
+    <button class="btn-primary mr-5" onclick="location.href = 'freeBoard.jsp'">목록으로</button>
 </div>
-<%}%>
 </body>
 <footer>
     <%@include file="/headerAndfooter/footer.jsp" %>
