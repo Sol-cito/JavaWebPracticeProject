@@ -18,7 +18,7 @@
     printWriter.flush();
 } else {%>
 <div class="container">
-    <form action="writingPro.jsp">
+    <form action="postWritingPro.jsp">
         <input class="form-control mt-4 mb-2" placeholder="제목을 입력해주세요" name="title" type="text" required>
         <textarea class="form-control" name="content" rows="10" placeholder="내용을 입력해주세요" required></textarea>
         <div style="float: right; padding-right : 15px; margin-right: auto; margin-top: 10px">

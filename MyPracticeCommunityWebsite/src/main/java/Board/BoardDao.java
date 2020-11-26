@@ -73,6 +73,25 @@ public class BoardDao {
         return 0;
     }
 
+    public int modify(BoardContentBean boardContentBean, int page_no) {
+        String title = boardContentBean.getTitle();
+        String content = boardContentBean.getContent();
+        instance.getConnection();
+        String modify_Update_QUERY = "UPDATE tb_freeboard SET title = ? , content = ? WHERE seq = ?";
+        try {
+            ps = connection.prepareStatement(modify_Update_QUERY);
+            ps.setString(1, title);
+            ps.setString(2, content);
+            ps.setInt(3, page_no);
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            instance.closeConnection();
+        }
+        return 0;
+    }
+
     /* 글쓴일 GET */
     private String getDate() {
         java.util.Date date = new Date();
@@ -106,7 +125,6 @@ public class BoardDao {
     }
 
     public BoardInfoBox showPost(int post_no) {
-        ArrayList<BoardInfoBox> returnArray = new ArrayList<>();
         instance.getConnection();
         String SELECT_QUERY = "SELECT * FROM tb_freeboard WHERE seq = ?";
         BoardInfoBox boardInfoBox = null;

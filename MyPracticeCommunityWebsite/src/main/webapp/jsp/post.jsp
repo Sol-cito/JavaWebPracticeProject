@@ -11,7 +11,6 @@
 </head>
 <body bgcolor="#f5f5dc">
 <%@include file="/headerAndfooter/header.jsp" %>
-<body>
 <%
     int post_no = Integer.parseInt(request.getParameter("post_no"));
     BoardDao boardDao = BoardDao.getInstance();
@@ -45,8 +44,8 @@
 </div>
 <div class="container mt-5">
     <% if (session.getAttribute("nickname") != null && session.getAttribute("nickname").equals(boardInfoBox.getAuthor())) {%>
-    <input class="btn-primary mr-5" type="button" value="수정">
-    <a class="btn" href="postDeletePro.jsp?post_no=<%=boardInfoBox.getSeq()%>"
+    <a class="btn-primary" href="postModify.jsp?post_no=<%=boardInfoBox.getSeq()%>">수정</a>
+    <a class="btn-primary" href="postDeletePro.jsp?post_no=<%=boardInfoBox.getSeq()%>"
        onclick="return askDelete()">삭제</a>
     <script>
         function askDelete() {
@@ -54,7 +53,7 @@
         }
     </script>
     <%}%>
-    <button class="btn-primary mr-5" onclick="location.href = 'freeBoard.jsp'">목록으로</button>
+    <button class="btn-primary" onclick="location.href = 'freeBoard.jsp'">목록으로</button>
 </div>
 </body>
 <footer>

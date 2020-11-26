@@ -47,7 +47,7 @@
         <li class="page-item"><a class="page-link" href="#">5</a></li>
     </ul>
     <div style="float: right; margin-right: 15%">
-        <input class="btn-primary" type="button" value="글쓰기" onclick="location.href = 'writing.jsp'">
+        <input class="btn-primary" type="button" value="글쓰기" onclick="location.href = 'postWriting.jsp'">
     </div>
 </div>
 </body>
