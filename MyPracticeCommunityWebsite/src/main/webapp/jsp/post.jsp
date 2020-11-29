@@ -1,6 +1,7 @@
 <%@ page import="Board.BoardDao" %>
 <%@ page import="Board.BoardInfoBox" %>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.util.HashSet" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
@@ -12,15 +13,20 @@
 <body bgcolor="#f5f5dc">
 <%@include file="/headerAndfooter/header.jsp" %>
 <%
-    int post_no = Integer.parseInt(request.getParameter("post_no"));
+    /* 세션에 봤던 게시글 번호를 저장해두고 안본 게시물일때만 조회수를 update함 */
     BoardDao boardDao = BoardDao.getInstance();
-    int viewUpdateResult = boardDao.addView(post_no);
-%>
-<% if (viewUpdateResult == 0) { %>
+    int post_no = Integer.parseInt(request.getParameter("post_no"));
+    if (session.getAttribute(request.getParameter("post_no")) == null) {
+        session.setAttribute("" + post_no, 1); // session에 value 1로 세팅
+        int viewUpdateResult = boardDao.addView(post_no);
+        if (viewUpdateResult == 0) { %>
 <script>
     alert("조회수 업데이트 실패");
 </script>
-<%}%>
+<%
+        }
+    }
+%>
 <%
     BoardInfoBox boardInfoBox = boardDao.showPost(post_no);
 %>
