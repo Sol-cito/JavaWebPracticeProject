@@ -136,7 +136,7 @@ public class BoardDao {
             boardInfoBox = new BoardInfoBox(
                     resultSet.getInt(1),
                     resultSet.getString(2),
-                    resultSet.getString(3),
+                    convertSpecialCharsIntoTags(resultSet.getString(3)),
                     resultSet.getString(4),
                     resultSet.getDate(5),
                     resultSet.getInt(6));
@@ -175,5 +175,15 @@ public class BoardDao {
             instance.closeConnection();
         }
         return 0; // 뭔가가 실패
+    }
+
+    public String convertSpecialCharsIntoTags(String target) {
+        String[] specialChars = {
+                "\r\n",
+        };
+        for (int i = 0; i < specialChars.length; i++) {
+            target = target.replaceAll(specialChars[i], "<br>");
+        }
+        return target;
     }
 }
