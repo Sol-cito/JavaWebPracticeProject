@@ -124,7 +124,10 @@ public class BoardDao {
         return returnArray;
     }
 
-    public BoardInfoBox showPost(int post_no) {
+    public BoardInfoBox showPost(int post_no, int flag) {
+        /*
+        flag --- 1 : 게시글 조회 / 2 : 게시글 수정
+        */
         instance.getConnection();
         String SELECT_QUERY = "SELECT * FROM tb_freeboard WHERE seq = ?";
         BoardInfoBox boardInfoBox = null;
@@ -133,10 +136,16 @@ public class BoardDao {
             ps.setInt(1, post_no);
             resultSet = ps.executeQuery();
             resultSet.next();
+            String postContent = "";
+            if (flag == 1) {
+                postContent = switchSpecialCharsAndTags(resultSet.getString(3), 1);
+            } else if (flag == 2) {
+                postContent = switchSpecialCharsAndTags(resultSet.getString(3), 2);
+            }
             boardInfoBox = new BoardInfoBox(
                     resultSet.getInt(1),
                     resultSet.getString(2),
-                    convertSpecialCharsIntoTags(resultSet.getString(3)),
+                    postContent,
                     resultSet.getString(4),
                     resultSet.getDate(5),
                     resultSet.getInt(6));
@@ -177,13 +186,25 @@ public class BoardDao {
         return 0; // 뭔가가 실패
     }
 
-    public String convertSpecialCharsIntoTags(String target) {
+    public String switchSpecialCharsAndTags(String target, int flag) {
+        System.out.println("============처음에 들어온 : ");
+        System.out.println(target);
+
+        /*
+        flag --- 1 : 게시글 조회 / 2 : 게시글 수정
+        */
         String[] specialChars = {
                 "\r\n",
         };
         for (int i = 0; i < specialChars.length; i++) {
-            target = target.replaceAll(specialChars[i], "<br>");
+            if (flag == 1) {
+                target = target.replaceAll(specialChars[i], "<br>");
+            } else if (flag == 2) {
+                target = target.replaceAll("<br>", specialChars[i]);
+            }
         }
+        System.out.println("================나가는 : ");
+        System.out.println(target);
         return target;
     }
 }

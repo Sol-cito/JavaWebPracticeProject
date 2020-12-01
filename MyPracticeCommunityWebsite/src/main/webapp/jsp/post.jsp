@@ -28,7 +28,7 @@
     }
 %>
 <%
-    BoardInfoBox boardInfoBox = boardDao.showPost(post_no);
+    BoardInfoBox boardInfoBox = boardDao.showPost(post_no, 1);
 %>
 <div class="container">
     <div>
