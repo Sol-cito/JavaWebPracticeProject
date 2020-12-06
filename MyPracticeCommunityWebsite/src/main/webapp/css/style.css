@@ -44,3 +44,28 @@
 .freeBoard_p_tag {
     align-content: center;
 }
+
+.h1 {
+    size: 500px;
+    align-items: center;
+}
+
+.h1:nth-child(1) {
+    color: #4285f4;
+}
+
+.h1:nth-child(2) {
+    color: #ea4335;
+}
+
+.h1:nth-child(3) {
+    color: #fcd35c;
+}
+
+.h1:nth-child(4) {
+    color: #34a853;
+}
+
+.h1:nth-child(5) {
+    color: #ea4335;
+}
