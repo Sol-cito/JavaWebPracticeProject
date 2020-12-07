@@ -48,7 +48,7 @@
         <%= boardInfoBox.getText()%>
     </div>
 </div>
-<div class="container mt-5">
+<div class="container mt-1 text-right">
     <% if (session.getAttribute("nickname") != null && session.getAttribute("nickname").equals(boardInfoBox.getAuthor())) {%>
     <a class="btn-primary" href="postModify.jsp?post_no=<%=boardInfoBox.getSeq()%>">수정</a>
     <a class="btn-primary" href="postDeletePro.jsp?post_no=<%=boardInfoBox.getSeq()%>"
@@ -60,6 +60,10 @@
     </script>
     <%}%>
     <button class="btn-primary" onclick="location.href = 'freeBoard.jsp'">목록으로</button>
+</div>
+<div class="container mt-5">
+    <textarea class="form-control" name="comment" rows="2" placeholder="댓글달기"></textarea>
+    <button class="btn-primary float-right">댓글달기</button>
 </div>
 </body>
 <footer>
