@@ -13,12 +13,12 @@
     PrintWriter printWriter = response.getWriter();
     printWriter.println("<script>");
     printWriter.println("alert('글을 쓰려면 로그인을 해야합니다.');");
-    printWriter.println("location.href = '/'");
+    printWriter.println("location.href = 'freeBoard.jsp'");
     printWriter.println("</script>");
     printWriter.flush();
 } else {%>
 <div class="container">
-    <form action="postWritingPro.jsp">
+    <form id="writingForm" action="postWritingPro.jsp">
         <input class="form-control mt-4 mb-2" placeholder="제목을 입력해주세요" name="title" type="text" required>
         <textarea class="form-control" name="content" rows="10" placeholder="내용을 입력해주세요" required></textarea>
         <div style="float: right; padding-right : 15px; margin-right: auto; margin-top: 10px">
@@ -26,6 +26,13 @@
         </div>
     </form>
 </div>
+
+<script>
+    window.onbeforeunload = function () {
+        return ""
+    }
+</script>
+
 </body>
 <footer>
     <%@include file="/headerAndfooter/footer.jsp" %>
