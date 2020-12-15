@@ -62,8 +62,10 @@
     <button class="btn-primary" onclick="location.href = 'freeBoard.jsp'">목록으로</button>
 </div>
 <div class="container mt-5">
-    <textarea class="form-control" name="comment" rows="2" placeholder="댓글달기"></textarea>
-    <button class="btn-primary float-right">댓글달기</button>
+    <form action="commentPro.jsp?post_no=<%=post_no%>" method="post">
+        <textarea class="form-control" name="commentContent" rows="2" placeholder="댓글"></textarea>
+        <input type="submit" class="btn-primary float-right mt-2" value="댓글달기">
+    </form>
 </div>
 </body>
 <footer>

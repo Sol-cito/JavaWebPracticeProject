@@ -51,9 +51,9 @@ public class BoardDao {
         }
     }
 
-    public int write(BoardContentBean boardContentBean, String nickname) {
+    public int write(BoardContentBean boardContentBean) {
         String title = boardContentBean.getTitle();
-        String author = nickname;
+        String author = boardContentBean.getAuthor();
         String content = boardContentBean.getContent();
 
         instance.getConnection();
@@ -185,6 +185,28 @@ public class BoardDao {
         }
         return 0; // 뭔가가 실패
     }
+
+    public int makeComment(CommentContentBean commentContentBean) {
+        int rel_Seq = commentContentBean.getRel_Seq();
+        String commentContent = commentContentBean.getCommentContent();
+        String author = commentContentBean.getAuthor();
+        instance.getConnection();
+        String write_INSERT_QUERY = "INSERT INTO tb_comment SET rel_seq = ?, content = ?, author = ?, date = ?";
+        try {
+            ps = connection.prepareStatement(write_INSERT_QUERY);
+            ps.setInt(1, rel_Seq);
+            ps.setString(2, commentContent);
+            ps.setString(3, author);
+            ps.setString(4, getDate());
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            instance.closeConnection();
+        }
+        return 0;
+    }
+
 
     public String switchSpecialCharsAndTags(String target, int flag) {
         System.out.println("============처음에 들어온 : ");
