@@ -11,7 +11,8 @@
 <jsp:useBean id="boardContentBean" class="Board.BoardContentBean"/>
 <jsp:setProperty name="boardContentBean" property="*"/>
 <% BoardDao boardDao = BoardDao.getInstance();
-    int writingResult = boardDao.write(boardContentBean, (String) session.getAttribute("nickname"));
+    boardContentBean.setAuthor((String) session.getAttribute("nickname"));
+    int writingResult = boardDao.write(boardContentBean);
     if (writingResult > 0) {
         response.sendRedirect("freeBoard.jsp");
     } else {
