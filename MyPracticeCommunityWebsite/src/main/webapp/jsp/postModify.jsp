@@ -25,6 +25,13 @@
         </div>
     </form>
 </div>
+
+<script>
+    window.onbeforeunload = function () {
+        return ""
+    }
+</script>
+
 </body>
 <footer>
     <%@include file="/headerAndfooter/footer.jsp" %>
