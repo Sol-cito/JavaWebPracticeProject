@@ -33,36 +33,55 @@
     BoardInfoBox boardInfoBox = boardDao.showPost(post_no, 1);
 %>
 <div class="container">
-    <div>
-        <h3><%= boardInfoBox.getTitle()%>
-        </h3>
-    </div>
-    <br>
-    <div>
-        <div>
-            글쓴이 : <%= boardInfoBox.getAuthor()%>
+    <div class="border">
+        <div class="m-3">
+            <div>
+                <h3><%= boardInfoBox.getTitle()%>
+                </h3>
+            </div>
+            <br>
+            <div>
+                <div>
+                    <b>글쓴이 : <%= boardInfoBox.getAuthor()%>
+                    </b>
+                </div>
+                <div>
+                    <span> 작성일 : <%= boardInfoBox.getDate()%></span> | <span> 조회수 : <%= boardInfoBox.getViews()%></span>
+                </div>
+            </div>
+            <br>
+            <div> <%-- 포스트 바디--%>
+                <%= boardInfoBox.getText()%>
+            </div>
         </div>
-        <div>
-            <span> 작성일 : <%= boardInfoBox.getDate()%></span>
-            <span> 조회수 : <%= boardInfoBox.getViews()%></span>
-        </div>
     </div>
-    <br>
-    <div> <%-- 포스트 바디--%>
-        <%= boardInfoBox.getText()%>
-    </div>
-
-    <div> <%-- 댓글--%>
+    <div class="mt-3"> <%-- 댓글--%>
         <%
             ArrayList<CommentInfoBox> commentInfoBoxArrayList = boardDao.getComments(post_no);
             for (int i = 0; i < commentInfoBoxArrayList.size(); i++) {
                 CommentInfoBox cBox = commentInfoBoxArrayList.get(i);
         %>
-        <a><%= cBox.getAuthor()%> <%= cBox.getDate()%>
-        </a>
-        <a>
-            <%= cBox.getContent()%> <%= cBox.getNum_like()%> <%= cBox.getNum_dislike()%>
-        </a>
+        <div class="container border">
+            <div class="row mt-3">
+                <div class="col-8">
+                    <span><b><%= cBox.getAuthor()%> </b><span/> | <span class="badge-light"><%= cBox.getDate()%></span>
+                </div>
+                <div class="col-2">
+                    <a class="mr-2">
+                        <span>좋아요</span>
+                        <span><%=cBox.getNum_like()%></span>
+                    </a>
+                    <a>
+                        <span>싫어요</span>
+                        <span><%=cBox.getNum_dislike()%></span>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-3">
+                <p><%= cBox.getContent()%>
+                </p>
+            </div>
+        </div>
         <%
             }
         %>
@@ -81,12 +100,14 @@
     <%}%>
     <button class="btn-primary" onclick="location.href = 'freeBoard.jsp'">목록으로</button>
 </div>
+<% if (session.getAttribute("nickname") != null) {%>
 <div class="container mt-5">
     <form action="commentPro.jsp?post_no=<%=post_no%>" method="post">
-        <textarea class="form-control" name="commentContent" rows="2" placeholder="댓글"></textarea>
+        <textarea class="form-control" name="commentContent" rows="2" placeholder="댓글" required></textarea>
         <input type="submit" class="btn-primary float-right mt-2" value="댓글달기">
     </form>
 </div>
+<% } %>
 </body>
 <footer>
     <%@include file="/headerAndfooter/footer.jsp" %>

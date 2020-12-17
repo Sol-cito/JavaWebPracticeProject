@@ -27,10 +27,14 @@
             BoardDao boardDao = BoardDao.getInstance();
             ArrayList<BoardInfoBox> arrayList = boardDao.readBoard();
             for (int i = 0; i < arrayList.size(); i++) {
-                BoardInfoBox boardInfoBox = arrayList.get(i); %>
+                BoardInfoBox boardInfoBox = arrayList.get(i);
+                int post_no = boardInfoBox.getSeq();
+        %>
         <tr>
-            <td><%= boardInfoBox.getSeq()%>
-            <td><a href="post.jsp?post_no=<%=boardInfoBox.getSeq()%>"><%= boardInfoBox.getTitle()%>
+            <td><%= post_no%>
+            <td><a href="post.jsp?post_no=<%=post_no%>"><%= boardInfoBox.getTitle()%>
+            </a>
+                <span><b>[<%=boardDao.getCommentNumOfPost(post_no)%>]</b></span>
             <td><%= boardInfoBox.getAuthor()%>
             <td><%= boardInfoBox.getDate()%>
             <td><%= boardInfoBox.getViews()%>

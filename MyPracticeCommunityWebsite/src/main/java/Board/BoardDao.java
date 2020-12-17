@@ -124,6 +124,28 @@ public class BoardDao {
         return returnArray;
     }
 
+    public int getCommentNumOfPost(int post_no) {
+        int result = 0;
+        instance.getConnection();
+        String SELECT_JOIN_QUERY =
+                "SELECT count(b.rel_seq) "
+                        + "FROM tb_freeboard a, tb_comment b "
+                        + "WHERE a.seq = b.rel_seq "
+                        + "AND a.seq = " + post_no + " "
+                        + "GROUP BY b.rel_seq";
+        try {
+            ps = connection.prepareStatement(SELECT_JOIN_QUERY);
+            resultSet = ps.executeQuery();
+            resultSet.next();
+            result = resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            instance.closeConnection();
+        }
+        return result;
+    }
+
     public BoardInfoBox showPost(int post_no, int flag) {
         /*
         flag --- 1 : 게시글 조회 / 2 : 게시글 수정
