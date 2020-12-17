@@ -14,11 +14,13 @@
             <a href="/jsp/freeBoard.jsp">자유게시판</a></li>
         </div>
         <% if (session.getAttribute("nickname") == null) { %>
-        <div style="margin-left: 15%">
+        <div class="align-items-md-baseline">
             <form method="post" action="../jsp/loginPro.jsp" onsubmit="return idAndPasswordCheck();">
                 아이디 : <input id="id" name="id" type="text" style="width: 100px">
                 비밀번호 : <input id="password" name="password" type="password" style="width: 100px">
                 <input class="btn-primary" type="submit" value="로그인">
+                <input class="btn-primary" type="button" value="회원가입"
+                       onclick="location.href = '../jsp/register.jsp'">
                 <script>
                     function idAndPasswordCheck() {
                         let idValue = document.getElementById("id").value;
@@ -39,10 +41,9 @@
             </form>
             <%} else {%>
             <h3>닉네임 : <%= session.getAttribute("nickname")%>
-            </>
-            <input class="btn-primary" type="button" value="로그아웃" onclick="location.href = '../jsp/logoutPro.jsp'">
-            <%}%>
-            <input class="btn-primary" type="button" value="회원가입" onclick="location.href = '../jsp/register.jsp'">
+                <input class="btn-primary" type="button" value="로그아웃"
+                       onclick="location.href = '../jsp/logoutPro.jsp'">
+                    <%}%>
         </div>
     </div>
 </header>

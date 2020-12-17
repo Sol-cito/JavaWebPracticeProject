@@ -207,6 +207,33 @@ public class BoardDao {
         return 0;
     }
 
+    public ArrayList<CommentInfoBox> getComments(int post_no) {
+        ArrayList<CommentInfoBox> commentBoxList = new ArrayList<>();
+        instance.getConnection();
+        String SELECT_QUERY =
+                "SELECT AUTHOR, CONTENT, DATE, num_like, num_dislike " +
+                        "FROM tb_comment " +
+                        "WHERE rel_seq = " + post_no;
+        try {
+            ps = connection.prepareStatement(SELECT_QUERY);
+            resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                CommentInfoBox commentInfoBox = new CommentInfoBox(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getDate(3),
+                        resultSet.getInt(4),
+                        resultSet.getInt(5));
+                commentBoxList.add(commentInfoBox);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            instance.closeConnection();
+        }
+        return commentBoxList;
+    }
+
 
     public String switchSpecialCharsAndTags(String target, int flag) {
         System.out.println("============처음에 들어온 : ");

@@ -20,7 +20,6 @@
     alert("댓글을 쓰는데 문제가 있음.")
 </script>
 <%
-    } else {
         response.sendRedirect("post.jsp?post_no=" + post_no);
     }
 %>

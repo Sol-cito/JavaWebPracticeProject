@@ -2,6 +2,8 @@
 <%@ page import="Board.BoardInfoBox" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.util.HashSet" %>
+<%@ page import="Board.CommentInfoBox" %>
+<%@ page import="java.util.ArrayList" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
@@ -37,15 +39,33 @@
     </div>
     <br>
     <div>
-        글쓴이 : <%= boardInfoBox.getAuthor()%>
-    </div>
-    <div>
-        <span> 작성일 : <%= boardInfoBox.getDate()%></span>
-        <span> 조회수 : <%= boardInfoBox.getViews()%></span>
+        <div>
+            글쓴이 : <%= boardInfoBox.getAuthor()%>
+        </div>
+        <div>
+            <span> 작성일 : <%= boardInfoBox.getDate()%></span>
+            <span> 조회수 : <%= boardInfoBox.getViews()%></span>
+        </div>
     </div>
     <br>
-    <div>
+    <div> <%-- 포스트 바디--%>
         <%= boardInfoBox.getText()%>
+    </div>
+
+    <div> <%-- 댓글--%>
+        <%
+            ArrayList<CommentInfoBox> commentInfoBoxArrayList = boardDao.getComments(post_no);
+            for (int i = 0; i < commentInfoBoxArrayList.size(); i++) {
+                CommentInfoBox cBox = commentInfoBoxArrayList.get(i);
+        %>
+        <a><%= cBox.getAuthor()%> <%= cBox.getDate()%>
+        </a>
+        <a>
+            <%= cBox.getContent()%> <%= cBox.getNum_like()%> <%= cBox.getNum_dislike()%>
+        </a>
+        <%
+            }
+        %>
     </div>
 </div>
 <div class="container mt-1 text-right">
