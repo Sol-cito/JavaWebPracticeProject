@@ -25,6 +25,7 @@
         </thead>
         <%
             BoardDao boardDao = BoardDao.getInstance();
+            int theNumberOfPosts = boardDao.getTheNumberOfPosts();
             ArrayList<BoardInfoBox> arrayList = boardDao.readBoard();
             for (int i = 0; i < arrayList.size(); i++) {
                 BoardInfoBox boardInfoBox = arrayList.get(i);
@@ -40,15 +41,17 @@
             <td><%= boardInfoBox.getViews()%>
         </tr>
         <%}%>
+        <a>포스트 개수 : <%=theNumberOfPosts%>
+        </a>
     </table>
 </div>
 <div>
     <ul class="pagination justify-content-center">
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">4</a></li>
-        <li class="page-item"><a class="page-link" href="#">5</a></li>
+        <% for (int i = 1; i <= theNumberOfPosts / 10 + 1; i++) {%>
+        <li class="page-item"><a class="page-link" href="#">
+            <%=i%>
+        </a></li>
+        <%}%>
     </ul>
     <div style="float: right; margin-right: 15%">
         <input class="btn-primary" type="button" value="글쓰기" onclick="location.href = 'postWriting.jsp'">

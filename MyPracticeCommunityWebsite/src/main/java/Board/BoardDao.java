@@ -181,9 +181,9 @@ public class BoardDao {
 
     public int deletePost(int post_no) {
         instance.getConnection();
-        String SELECT_QUERY = "DELETE FROM tb_freeboard WHERE seq = ?";
+        String DELETE_QUERY = "DELETE FROM tb_freeboard WHERE seq = ?";
         try {
-            ps = connection.prepareStatement(SELECT_QUERY);
+            ps = connection.prepareStatement(DELETE_QUERY);
             ps.setInt(1, post_no);
             return ps.executeUpdate(); // 업데이트 (delete)된 개수를 return한다.
         } catch (SQLException e) {
@@ -196,7 +196,7 @@ public class BoardDao {
 
     public int addView(int post_no) {
         instance.getConnection();
-        String SELECT_QUERY = "UPDATE tb_freeboard SET VIEWS = VIEWS + 1 WHERE SEQ = " + post_no + ";";
+        String SELECT_QUERY = "UPDATE tb_freeboard SET VIEWS = VIEWS + 1 WHERE SEQ = " + post_no;
         try {
             ps = connection.prepareStatement(SELECT_QUERY);
             return ps.executeUpdate();
@@ -256,6 +256,23 @@ public class BoardDao {
         return commentBoxList;
     }
 
+    /* 게시글 수 반환 메소드 */
+    public int getTheNumberOfPosts() {
+        int result = 0;
+        instance.getConnection();
+        String SELECT_QUERY = "SELECT count(seq) FROM tb_freeboard";
+        try {
+            ps = connection.prepareStatement(SELECT_QUERY);
+            resultSet = ps.executeQuery();
+            resultSet.next();
+            result = resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            instance.closeConnection();
+        }
+        return result;
+    }
 
     public String switchSpecialCharsAndTags(String target, int flag) {
         System.out.println("============처음에 들어온 : ");
