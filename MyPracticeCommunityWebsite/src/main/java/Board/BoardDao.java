@@ -99,10 +99,13 @@ public class BoardDao {
         return simpleDateFormat.format(date);
     }
 
-    public ArrayList<BoardInfoBox> readBoard() {
+    public ArrayList<BoardInfoBox> readBoard(int page_no) {
         ArrayList<BoardInfoBox> returnArray = new ArrayList<>();
         instance.getConnection();
-        String SELECT_QUERY = "SELECT * FROM tb_freeboard";
+        String SELECT_QUERY = "SELECT seq, title, content, author, date, views, @rownum := @rownum + 1 " +
+                "FROM tb_freeboard, (SELECT @rownum := 0) tb_rownum " +
+                "ORDER BY seq desc " +
+                "LIMIT " + page_no * 10 + " , 10 ";
         try {
             ps = connection.prepareStatement(SELECT_QUERY);
             resultSet = ps.executeQuery();
@@ -121,6 +124,7 @@ public class BoardDao {
         } finally {
             instance.closeConnection();
         }
+        System.out.println("리턴 어레이 개수 : " + returnArray.size());
         return returnArray;
     }
 
@@ -136,8 +140,9 @@ public class BoardDao {
         try {
             ps = connection.prepareStatement(SELECT_JOIN_QUERY);
             resultSet = ps.executeQuery();
-            resultSet.next();
-            result = resultSet.getInt(1);
+            while (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -157,20 +162,21 @@ public class BoardDao {
             ps = connection.prepareStatement(SELECT_QUERY);
             ps.setInt(1, post_no);
             resultSet = ps.executeQuery();
-            resultSet.next();
-            String postContent = "";
-            if (flag == 1) {
-                postContent = switchSpecialCharsAndTags(resultSet.getString(3), 1);
-            } else if (flag == 2) {
-                postContent = switchSpecialCharsAndTags(resultSet.getString(3), 2);
+            while (resultSet.next()) {
+                String postContent = "";
+                if (flag == 1) {
+                    postContent = switchSpecialCharsAndTags(resultSet.getString(3), 1);
+                } else if (flag == 2) {
+                    postContent = switchSpecialCharsAndTags(resultSet.getString(3), 2);
+                }
+                boardInfoBox = new BoardInfoBox(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        postContent,
+                        resultSet.getString(4),
+                        resultSet.getDate(5),
+                        resultSet.getInt(6));
             }
-            boardInfoBox = new BoardInfoBox(
-                    resultSet.getInt(1),
-                    resultSet.getString(2),
-                    postContent,
-                    resultSet.getString(4),
-                    resultSet.getDate(5),
-                    resultSet.getInt(6));
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -264,8 +270,9 @@ public class BoardDao {
         try {
             ps = connection.prepareStatement(SELECT_QUERY);
             resultSet = ps.executeQuery();
-            resultSet.next();
-            result = resultSet.getInt(1);
+            while (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

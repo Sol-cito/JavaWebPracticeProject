@@ -24,9 +24,14 @@
         </tr>
         </thead>
         <%
+            String getPage_no = request.getParameter("page_no");
+            int page_no = 0;
+            if (getPage_no != null) {
+                page_no = Integer.parseInt(getPage_no);
+            }
             BoardDao boardDao = BoardDao.getInstance();
             int theNumberOfPosts = boardDao.getTheNumberOfPosts();
-            ArrayList<BoardInfoBox> arrayList = boardDao.readBoard();
+            ArrayList<BoardInfoBox> arrayList = boardDao.readBoard(page_no);
             for (int i = 0; i < arrayList.size(); i++) {
                 BoardInfoBox boardInfoBox = arrayList.get(i);
                 int post_no = boardInfoBox.getSeq();
@@ -41,15 +46,14 @@
             <td><%= boardInfoBox.getViews()%>
         </tr>
         <%}%>
-        <a>포스트 개수 : <%=theNumberOfPosts%>
         </a>
     </table>
 </div>
 <div>
     <ul class="pagination justify-content-center">
-        <% for (int i = 1; i <= theNumberOfPosts / 10 + 1; i++) {%>
-        <li class="page-item"><a class="page-link" href="#">
-            <%=i%>
+        <% for (int i = 0; i <= (theNumberOfPosts - 1) / 10; i++) {%>
+        <li class="page-item"><a class="page-link" href="?page_no=<%=i%>">
+            <%=(i + 1)%>
         </a></li>
         <%}%>
     </ul>

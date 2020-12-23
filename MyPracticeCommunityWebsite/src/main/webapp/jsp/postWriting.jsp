@@ -27,11 +27,12 @@
     </form>
 </div>
 
-<script>
-    window.onbeforeunload = function () {
-        return ""
-    }
-</script>
+<%-- 아래 스크립트는 refresh 될 때 발생하므로, 작성완료를 눌렀을 떄도 동작함....--%>
+<%--<script>--%>
+<%--    window.onbeforeunload = function () {--%>
+<%--        return ""--%>
+<%--    }--%>
+<%--</script>--%>
 
 </body>
 <footer>
