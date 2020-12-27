@@ -57,9 +57,18 @@
         </a></li>
         <%}%>
     </ul>
-    <div style="float: right; margin-right: 15%">
-        <input class="btn-primary" type="button" value="글쓰기" onclick="location.href = 'postWriting.jsp'">
+    <div class="container">
+        <div class="row justify-content-center">
+            <form action="searchResult.jsp">
+                <input name="searchKeyword" required>
+                <button class="btn-primary" type="submit">검색</button>
+            </form>
+        </div>
+        <div class="row justify-content-end">
+            <input class="btn-primary" type="button" value="글쓰기" onclick="location.href = 'postWriting.jsp'">
+        </div>
     </div>
+</div>
 </div>
 </body>
 <footer>

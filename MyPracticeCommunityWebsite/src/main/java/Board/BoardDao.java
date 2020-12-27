@@ -102,10 +102,37 @@ public class BoardDao {
     public ArrayList<BoardInfoBox> readBoard(int page_no) {
         ArrayList<BoardInfoBox> returnArray = new ArrayList<>();
         instance.getConnection();
-        String SELECT_QUERY = "SELECT seq, title, content, author, date, views, @rownum := @rownum + 1 " +
+        String SELECT_QUERY = "SELECT seq, title, author, date, views, @rownum := @rownum + 1 " +
                 "FROM tb_freeboard, (SELECT @rownum := 0) tb_rownum " +
                 "ORDER BY seq desc " +
                 "LIMIT " + page_no * 10 + " , 10 ";
+        try {
+            ps = connection.prepareStatement(SELECT_QUERY);
+            resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                BoardInfoBox boardInfoBox = new BoardInfoBox(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        "",
+                        resultSet.getString(3),
+                        resultSet.getDate(4),
+                        resultSet.getInt(5));
+                returnArray.add(boardInfoBox);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            instance.closeConnection();
+        }
+        return returnArray;
+    }
+
+    public ArrayList<BoardInfoBox> searchBoard(String searchKeyword) {
+        ArrayList<BoardInfoBox> returnArray = new ArrayList<>();
+        instance.getConnection();
+        String SELECT_QUERY = "SELECT seq, title, content, author, date, views " +
+                "FROM tb_freeboard " +
+                "WHERE content like '%" + searchKeyword + "%'";
         try {
             ps = connection.prepareStatement(SELECT_QUERY);
             resultSet = ps.executeQuery();
@@ -124,7 +151,6 @@ public class BoardDao {
         } finally {
             instance.closeConnection();
         }
-        System.out.println("리턴 어레이 개수 : " + returnArray.size());
         return returnArray;
     }
 
