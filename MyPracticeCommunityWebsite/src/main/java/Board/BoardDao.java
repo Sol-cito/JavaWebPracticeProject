@@ -140,7 +140,7 @@ public class BoardDao {
                 BoardInfoBox boardInfoBox = new BoardInfoBox(
                         resultSet.getInt(1),
                         resultSet.getString(2),
-                        resultSet.getString(3),
+                        switchSpecialCharsAndTags(resultSet.getString(3), 1),
                         resultSet.getString(4),
                         resultSet.getDate(5),
                         resultSet.getInt(6));
@@ -308,9 +308,6 @@ public class BoardDao {
     }
 
     public String switchSpecialCharsAndTags(String target, int flag) {
-        System.out.println("============처음에 들어온 : ");
-        System.out.println(target);
-
         /*
         flag --- 1 : 게시글 조회 / 2 : 게시글 수정
         */
@@ -324,8 +321,6 @@ public class BoardDao {
                 target = target.replaceAll("<br>", specialChars[i]);
             }
         }
-        System.out.println("================나가는 : ");
-        System.out.println(target);
         return target;
     }
 }

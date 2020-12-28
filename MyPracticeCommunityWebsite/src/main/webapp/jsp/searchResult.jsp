@@ -6,20 +6,22 @@
 <head>
     <meta charset="UTF-8">
     <title>검색결과</title>
-    <link href="../css/style.css?ver=1" rel="stylesheet" type="text/css"/>
     <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="../css/style.css?ver=1" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <%@include file="/headerAndfooter/header.jsp" %>
 <div class="container">
-    <ul>
-        <li>
-            <div>No</div>
-            <div>제목</div>
-            <div>날짜</div>
-            <div>글쓴이</div>
-            <div>조회수</div>
-        </li>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th>No</th>
+            <th>제목</th>
+            <th>글쓴이</th>
+            <th>날짜</th>
+            <th>조회수</th>
+        </tr>
+        </thead>
         <%
             String searchKeyword = request.getParameter("searchKeyword");
             BoardDao boardDao = BoardDao.getInstance();
@@ -27,26 +29,28 @@
             for (int i = 0; i < boardInfoBoxArrayList.size(); i++) {
                 BoardInfoBox boardInfoBox = boardInfoBoxArrayList.get(i);
         %>
-        <li>
-            <div>
-                <div><%=boardInfoBox.getSeq()%>
-                </div>
-                <div><%=boardInfoBox.getTitle()%>
-                </div>
-                <div><%=boardInfoBox.getDate()%>
-                </div>
-                <div><%=boardInfoBox.getAuthor()%>
-                </div>
-                <div><%=boardInfoBox.getViews()%>
-                </div>
-            </div>
-            <div>
-                <a><%=boardInfoBox.getText()%>
-                </a>
-            </div>
-        </li>
+        <tbody>
+        <tr>
+            <td><%=boardInfoBox.getSeq()%>
+            </td>
+            <td>
+                <a href="post.jsp?post_no=<%=boardInfoBox.getSeq()%>"><%=boardInfoBox.getTitle()%>
+            </td>
+            <td><%=boardInfoBox.getDate()%>
+            </td>
+            <td><%=boardInfoBox.getAuthor()%>
+            </td>
+            <td><%=boardInfoBox.getViews()%>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <%=boardInfoBox.getText()%>
+            </td>
+        </tr>
         <%}%>
-    </ul>
+        </tbody>
+    </table>
 </div>
 </body>
 <footer>
